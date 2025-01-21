@@ -20,6 +20,7 @@ class LiteRollingSwitch extends StatefulWidget {
   @required
   final bool value;
   final double width;
+  final double height;
 
   @required
   final Function(bool) onChanged;
@@ -33,9 +34,8 @@ class LiteRollingSwitch extends StatefulWidget {
   final Duration animationDuration;
   final Widget iconOn;
   final Widget iconOff;
-  final Function onTap;
-  final Function onDoubleTap;
-  final Function onSwipe;
+  final Function interact;
+
 
   LiteRollingSwitch({
     this.value = false,
@@ -45,15 +45,14 @@ class LiteRollingSwitch extends StatefulWidget {
     this.textSize = 14.0,
     this.colorOn = Colors.green,
     this.colorOff = Colors.red,
-   required this.iconOff,
-   required this.iconOn,
+    required this.iconOff,
+    required this.iconOn,
     this.animationDuration = const Duration(milliseconds: 600),
     this.textOffColor = Colors.white,
     this.textOnColor = Colors.black,
-    required this.onTap,
-    required this.onDoubleTap,
-    required this.onSwipe,
+    required this.interact,
     required this.onChanged,
+    required this.height,
   });
 
   @override
@@ -111,21 +110,22 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
     return GestureDetector(
       onDoubleTap: () {
         _action();
-        widget.onDoubleTap();
+        widget.interact();
       },
       onTap: () {
         _action();
-        widget.onTap();
+        widget.interact();
       },
       onPanEnd: (details) {
         _action();
-        widget.onSwipe();
+        widget.interact();
       },
       child: Container(
         padding: EdgeInsets.all(5),
         width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
-            color: transitionColor, borderRadius: BorderRadius.circular(50)),
+            color: transitionColor, borderRadius: BorderRadius.circular(25)),
         child: Stack(
           children: <Widget>[
             Transform.translate(
@@ -135,12 +135,8 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
               child: Opacity(
                 opacity: (1 - value).clamp(0.0, 1.0),
                 child: Container(
-                  padding: isRTL(context)
-                      ? EdgeInsets.only(left: 10)
-                      : EdgeInsets.only(right: 10),
-                  alignment: isRTL(context)
-                      ? Alignment.centerLeft
-                      : Alignment.centerRight,
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.center,
                   height: 40,
                   child: Text(
                     widget.textOff,
@@ -159,12 +155,8 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
               child: Opacity(
                 opacity: value.clamp(0.0, 1.0),
                 child: Container(
-                  padding: isRTL(context)
-                      ? EdgeInsets.only(right: 5)
-                      : EdgeInsets.only(left: 5),
-                  alignment: isRTL(context)
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
                   height: 40,
                   child: Text(
                     widget.textOn,

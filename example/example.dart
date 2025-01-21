@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 void main() => runApp(const MyApp());
 
@@ -42,26 +43,25 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
 
             //Customized
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 20),
-            //   child: LiteRollingSwitch(
-            //     value: true,
-            //     width: 150,
-            //     textOn: 'active',
-            //     textOff: 'inactive',
-            //     colorOn: Colors.deepOrange,
-            //     colorOff: Colors.blueGrey,
-            //     iconOn: Icon(Icons.lightbulb_outline),
-            //     iconOff: Icon(Icons.power_settings_new),
-            //     animationDuration: const Duration(milliseconds: 300),
-            //     onChanged: (bool state) {
-            //       print('turned ${(state) ? 'on' : 'off'}');
-            //     },
-            //     onDoubleTap: () {},
-            //     onSwipe: () {},
-            //     onTap: () {},
-            //   ),
-            // )
+            Padding(
+              padding: const EdgeInsets.only(top: 20, bottom: 10),
+              child: LiteRollingSwitch(
+                value: true,
+                width: 120,
+                height: 40,
+                textOn: 'Visual',
+                textOff: 'Text',
+                colorOn: Colors.deepOrange,
+                colorOff: Colors.blueGrey,
+                iconOn: Icon(Icons.lightbulb_outline),
+                iconOff: Icon(Icons.power_settings_new),
+                animationDuration: const Duration(milliseconds: 300),
+                onChanged: (bool state) {
+                  print('turned ${(state) ? 'on' : 'off'}');
+                },
+                interact: () {},
+              ),
+            )
           ],
         ),
       ),
